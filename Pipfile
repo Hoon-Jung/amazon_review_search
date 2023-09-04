@@ -6,10 +6,11 @@ name = "pypi"
 [packages]
 langchain = "*"
 pandas = "*"
-sentence-transformers = "*"
+sentence-transformers = "1.9.0"
 faiss-cpu = "*"
 openai = "*"
 streamlit = "*"
+torch = "1.9.0"
 
 [dev-packages]
 
