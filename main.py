@@ -30,12 +30,12 @@ def prep_db():
 
 
 def get_answer(product_id, question):
-    selected_db = FAISS.load_local(f"db/{product_id}", HuggingFaceEmbeddings())
+    # selected_db = FAISS.load_local(f"db/{product_id}", HuggingFaceEmbeddings())
 
-    llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0)
-    qa_chain = RetrievalQA.from_chain_type(llm, chain_type="stuff", retriever=selected_db.as_retriever())
-    res = qa_chain({"query": question})
-    return res["result"]
+    # llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0)
+    # qa_chain = RetrievalQA.from_chain_type(llm, chain_type="stuff", retriever=selected_db.as_retriever())
+    # res = qa_chain({"query": question})
+    return "answer"   #res["result"]
 
 if __name__ == "__main__":
     st.title("Review Search Engine")
