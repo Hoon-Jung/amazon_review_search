@@ -22,12 +22,12 @@ def prep_db(doc):
     reviews_doc = same_products.tolist()
     reviews_doc = "\n".join(reviews_doc)
 
-    # text_splitter = CharacterTextSplitter(separator="\n",chunk_size=1000)
-    # texts = text_splitter.create_documents([reviews_doc])
+    text_splitter = CharacterTextSplitter(separator="\n",chunk_size=1000)
+    texts = text_splitter.create_documents([reviews_doc])
 
-    # db = FAISS.from_documents(texts, HuggingFaceEmbeddings())
+    db = FAISS.from_documents(texts, HuggingFaceEmbeddings())
 
-    return reviews_doc
+    return db
 
 
 
