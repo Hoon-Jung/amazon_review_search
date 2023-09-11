@@ -27,7 +27,7 @@ def prep_db(doc, key):
 
     # db = FAISS.from_documents(texts, HuggingFaceEmbeddings())
     embedder = OpenAIEmbeddings(openai_api_key=key)
-    # db = FAISS.from_documents(texts, embedder)
+    db = FAISS.from_documents(texts, embedder)
 
     return texts
 
