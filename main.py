@@ -6,7 +6,9 @@ from langchain.chains import RetrievalQA
 from langchain.chat_models import ChatOpenAI
 from langchain.vectorstores import FAISS
 
+import openai
 import streamlit as st
+import os
 
 def prep_db():
     df = pd.read_csv("./reviews/OFFICIAL_AMAZON_FASHION_TAGS.csv")
@@ -38,6 +40,18 @@ def get_answer(product_id, question):
 if __name__ == "__main__":
     st.title("Review Search Engine")
     options = ["B00007GDFV", "B00008JOQI", "7106116521"]
+
+    api_key_input = st.text_input("Enter OpenAI API Key", type="password", value=os.getenv("OPENAI_API_KEY") or st.session_state.get("OPENAI_API_KEY", ""))
+    api_key_button = st.button("Add")
+    if api_key_button:
+        st.session_state["OPENAI_API_KEY"] = api_key_input
+
+    openai_api_key = st.session_state.get("OPENAI_API_KEY")
+    if openai_api_key:
+        openai.api_key = openai_api_key
+    else:
+        st.warning("WARNING: Enter your OpenAI API key!")
+
     selected_option = st.selectbox("Select a product", options)
     st.write("Currently selected:", selected_option)
     question = st.text_input("Ask a question")
