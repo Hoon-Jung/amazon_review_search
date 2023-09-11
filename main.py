@@ -18,16 +18,16 @@ def prep_db(doc):
 
     df = pd.read_csv("./reviews/OFFICIAL_AMAZON_FASHION_TAGS.csv")
 
-    # same_products = df[df["asin"]==doc]["reviewText"]
-    # reviews_doc = same_products.tolist()
-    # reviews_doc = "\n".join(reviews_doc)
+    same_products = df[df["asin"]==doc]["reviewText"]
+    reviews_doc = same_products.tolist()
+    reviews_doc = "\n".join(reviews_doc)
 
     # text_splitter = CharacterTextSplitter(separator="\n",chunk_size=1000)
     # texts = text_splitter.create_documents([reviews_doc])
 
     # db = FAISS.from_documents(texts, HuggingFaceEmbeddings())
 
-    return df
+    return reviews_doc
 
 
 
