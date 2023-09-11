@@ -33,10 +33,11 @@ def prep_db():
         db.save_local(f"{p}")
 
 
-def get_answer(product_id, question):
+def get_answer(product_id, question, apikey):
     # selected_db = FAISS.load_local(f"db/{product_id}", HuggingFaceEmbeddings())
 
-    llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0)
+    llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0, openai_api_key=apikey)
+
     # qa_chain = RetrievalQA.from_chain_type(llm, chain_type="stuff", retriever=selected_db.as_retriever())
     # qa_chain = RetrievalQA.from_chain_type(llm)
     # res = llm({"query": question})
@@ -67,4 +68,4 @@ if __name__ == "__main__":
     st.write("Currently selected:", selected_option)
     question = st.text_input("Ask a question")
     if st.button("Get Answer"):
-        st.write(get_answer(selected_option, question))
+        st.write(get_answer(selected_option, question, openai_api_key))
