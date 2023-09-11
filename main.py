@@ -5,7 +5,7 @@ from langchain.text_splitter import CharacterTextSplitter
 from langchain.chains import RetrievalQA
 from langchain.chat_models import ChatOpenAI
 from langchain.vectorstores import FAISS
-from langchain import LLMChain
+from langchain.embeddings import OpenAIEmbeddings
 
 import openai
 import streamlit as st
@@ -14,7 +14,7 @@ import os
 
 from langchain import PromptTemplate
 
-def prep_db(doc):
+def prep_db(doc, key):
 
     df = pd.read_csv("./reviews/OFFICIAL_AMAZON_FASHION_TAGS.csv")
 
@@ -26,6 +26,8 @@ def prep_db(doc):
     texts = text_splitter.create_documents([reviews_doc])
 
     # db = FAISS.from_documents(texts, HuggingFaceEmbeddings())
+    embedder = OpenAIEmbeddings(openai_api_key=key)
+    # db = FAISS.from_documents(texts, embedder)
 
     return texts
 
@@ -67,4 +69,4 @@ if __name__ == "__main__":
     question = st.text_input("Ask a question")
     if st.button("Get Answer"):
         # st.write(get_answer(selected_option, question, openai_api_key, prep_db(selected_option)))
-        st.write(prep_db(selected_option))
+        st.write(prep_db(selected_option, openai_api_key))
