@@ -18,17 +18,16 @@ def prep_db(doc):
 
     df = pd.read_csv("./reviews/OFFICIAL_AMAZON_FASHION_TAGS.csv")
 
-    # unique_products = df['asin'].unique()
-    same_products = df[df["asin"]==doc]["reviewText"]
-    reviews_doc = same_products.tolist()
-    reviews_doc = "\n".join(reviews_doc)
+    # same_products = df[df["asin"]==doc]["reviewText"]
+    # reviews_doc = same_products.tolist()
+    # reviews_doc = "\n".join(reviews_doc)
 
-    text_splitter = CharacterTextSplitter(separator="\n",chunk_size=1000)
-    texts = text_splitter.create_documents([reviews_doc])
+    # text_splitter = CharacterTextSplitter(separator="\n",chunk_size=1000)
+    # texts = text_splitter.create_documents([reviews_doc])
 
-    db = FAISS.from_documents(texts, HuggingFaceEmbeddings())
+    # db = FAISS.from_documents(texts, HuggingFaceEmbeddings())
 
-    return db
+    return df
 
 
 
@@ -67,4 +66,5 @@ if __name__ == "__main__":
     st.write("Currently selected:", selected_option)
     question = st.text_input("Ask a question")
     if st.button("Get Answer"):
-        st.write(get_answer(selected_option, question, openai_api_key, prep_db(selected_option)))
+        # st.write(get_answer(selected_option, question, openai_api_key, prep_db(selected_option)))
+        st.write(prep_db(selected_option))
